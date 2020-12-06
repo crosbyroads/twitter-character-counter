@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Twitter Character Count</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="twitter.png" type="image/x-png">
+</head>
+<body>
+	
+	<section class="app-wrapper">
+		<div class="app-paper">
+			<h1>Twitter Character Counter</h1>
+			<form action="#" method="post">
+				<textarea name="comment" class="commentArea"></textarea>
+				<div class="charCounter">20/20</div>
+				<button class="btnSubmit">Comment</button>
+			</form>
+		</div>
+	</section>
+
+
+	<!-- THE LOGIC -->
+	<script>
+		const sel = (el) => {
+			return document.querySelector(el)
+		}
+
+		// get the elements
+		let comment = sel('.commentArea')
+		let counter = sel('.charCounter')
+		let btn = sel('.btnSubmit')
+
+		const totalLength = 160
+
+		// validation function
+		const validateComment = () => {
+			let len = parseInt(totalLength - comment.value.length)
+			counter.innerHTML = `${len} / ${totalLength}`
+
+			if (len < 0) {
+				counter.style.cssText = 'color: #e50000'
+				comment.style.cssText = 'box-shadow: 0px 5px 12px -6px #e50000'
+				btn.style.cssText = 'visibility: hidden'
+			} else {
+				counter.style.cssText = 'color: #00bb00'
+				comment.style.cssText = 'box-shadow: none'
+				btn.style.cssText = 'visibility: visible'
+			}
+		}
+
+		validateComment() // this function call only runs on page load
+
+		comment.addEventListener('keydown', (e) => { // run this on every keystroke in the textarea
+			validateComment()
+		})
+
+	</script>
+
+	<!-- END OF THE LOGIC -->
+
+</body>
+</html>
